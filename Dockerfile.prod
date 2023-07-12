@@ -1,0 +1,17 @@
+# state 1
+FROM node:18-alpine as builder
+
+WORKDIR /app
+
+COPY package*.json /app
+# COPY package*.json . >> มีค่าเท่ากัน
+RUN npm install
+
+COPY . .
+RUN npm run build
+
+# CMD ["npm","run","build"]
+
+# state 2 : prepare nginx
+FROM nginx
+COPY --from=builder /app/build /usr/share/nginx/html

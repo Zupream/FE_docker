@@ -1,0 +1,12 @@
+
+FROM node:alpine
+
+WORKDIR /app
+
+COPY package*.json /app
+# COPY package*.json . >> มีค่าเท่ากัน
+RUN npm install
+
+COPY . .
+
+CMD ["npm","start"]
